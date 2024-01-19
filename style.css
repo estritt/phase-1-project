@@ -5,22 +5,37 @@
 html, body{
     margin: 0;
     padding: 0;
+    background-color: #BAE0C2;
 }
 
 header {
     padding: 1rem;
-    width: 100%;
+    width: 100vw;
     color: #BAE0C2;
     background-color: #660714;
 }
 
 
 h1 {
+    width: 60vw; /* kind of clumsy fix */
     position: relative;
     left: 5rem;
-
 }
 
-#navigation {
+#thumbnail-tab {
+    width: 20%;
+    color: #BAE0C2;
+    background-color: #660714;
+    height: 100vh;
+}
 
+.right-side {
+    float: right;
+    width: 80%;
+}
+
+form#search-bar {
+    float: right;
+    position: relative;
+    right: 3rem;
 }
