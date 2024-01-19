@@ -10,12 +10,12 @@ const configObj = {
 function getImage() {
     fetch(`${base_Url}photos/random`, configObj)
     .then(resp => resp.json())
-    .then(imageObj => renderImage(imageObj));
+    .then(imageObj => {debugger; renderImage(imageObj)});
 }
 
 function renderImage(imageObj) {
     // const picDiv = document.getElementById('main');
-    document.querySelector('#main-artwork img').src = imageObj.links.download;
+    document.querySelector('#main-artwork img').src = imageObj.urls.raw + `&w=1000`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {

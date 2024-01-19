@@ -15,6 +15,9 @@ header {
     background-color: #660714;
 }
 
+#below-header {
+    display: inline-flex;
+}
 
 h1 {
     width: 60vw; /* kind of clumsy fix */
@@ -26,10 +29,10 @@ h1 {
     width: 20%;
     color: #BAE0C2;
     background-color: #660714;
-    height: 100vh;
+    height: calc(100vh - 5rem);
 }
 
-.right-side {
+#right-side {
     float: right;
     width: 80%;
 }
@@ -39,3 +42,8 @@ form#search-bar {
     position: relative;
     right: 3rem;
 }
+
+
+/* #main-artwork {
+    width: 80%;
+} */
