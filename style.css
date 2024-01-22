@@ -30,11 +30,19 @@ h1 {
     color: #BAE0C2;
     background-color: #660714;
     height: calc(100vh - 5rem);
+    overflow-y: auto;
+}
+
+#thumbnail-tab img {
+    margin-left: auto;
+    margin-right: auto;
+    display: inside;
 }
 
 #right-side {
     float: right;
     width: 80%;
+    margin: 1rem 1rem 1rem 1rem;
 }
 
 form#search-bar {
@@ -44,6 +52,19 @@ form#search-bar {
 }
 
 
-/* #main-artwork {
-    width: 80%;
-} */
+#main-artwork img {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: block;
+    float: none
+}
+
+#likes-and-comments {
+    display: inline-flex;
+}
+#num-likes {
+    padding-left: 0.5rem;
+    padding-top: 0.3rem;
+}
