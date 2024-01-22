@@ -9,6 +9,20 @@ const configObj = {
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const newImg = document.createElement('img');
+    document.getElementById('main-artwork').append(newImg);
+    getImage();
+
+    const newImgBtn = document.getElementById('new-img-btn');
+    newImgBtn.addEventListener('click', () => getImage());
+
+    fetch(jsonUrl)
+    .then(resp => resp.json())
+    .then(images => {
+        for (image of images) {debugger; createThumbnail(image);}
+    });
+})
 
 function getImage() {
     fetch(`${base_Url}photos/random`, configObj)
@@ -44,16 +58,6 @@ function renderImage(imageObj) {
         //if yes, patch and change like count
         //update DOM regardless
 }
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    const newImg = document.createElement('img');
-    document.getElementById('main-artwork').append(newImg);
-    getImage();
-
-    const newImgBtn = document.getElementById('new-img-btn');
-    newImgBtn.addEventListener('click', () => getImage());
-})
 
 function handleThumbnailClick() {
     //this will render the image with the corresponding ID in the main-artwork area
