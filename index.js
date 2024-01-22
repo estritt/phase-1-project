@@ -22,4 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const newImg = document.createElement('img');
     document.getElementById('main-artwork').append(newImg);
     getImage();
+
+    const newImgBtn = document.getElementById('new-img-btn');
+    newImgBtn.addEventListener('click', () => getImage());
 })
