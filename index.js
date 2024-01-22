@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(jsonUrl)
     .then(resp => resp.json())
     .then(images => {
-        for (image of images) {debugger; createThumbnail(image);}
+        for (image of images) {createThumbnail(image);}
     });
 })
 
@@ -30,11 +30,15 @@ function getImage() {
     .then(imageObj => {renderImage(imageObj)});
 }
 
+let selectedImageObj;
+function forListener() {handleLike(selectedImageObj)}
+
 function renderImage(imageObj) {
+    selectedImageObj = imageObj;
     const mainArtwork = document.getElementById('main-artwork').classList;
     if (mainArtwork != '') {mainArtwork.remove(...mainArtwork)}
     mainArtwork.add(imageObj.id)
-   document.querySelector('#main-artwork img').src = imageObj.urls.raw + `&fit=clip&w=750&h=750`;
+    document.querySelector('#main-artwork img').src = imageObj.urls.raw + `&fit=clip&w=750&h=750`;
    
     likeBtn = document.getElementById("like-btn");
     likeBtn.textContent = emptyHeart;
@@ -43,15 +47,19 @@ function renderImage(imageObj) {
     fetch(jsonUrl)
     .then(resp => resp.json())
     .then((images) => {
-        document.getElementById('num-likes').textContent = 0
+        let foundAnImg = false;
         for (image of images) {
             if (image.id === id) {
+                foundAnImg = true;
                 document.getElementById('num-likes').textContent = image.likes
             //adding another for loop to add comments to DOM
             }
+        if (!foundAnImg) {document.getElementById('num-likes').textContent = 0}
         }
     });
-    likeBtn.addEventListener('click', () => handleLike(imageObj));
+
+    likeBtn.removeEventListener('click', forListener);
+    likeBtn.addEventListener('click', forListener);
         
         //check if id is in db.json, 
         //if no, post to db.json and create thumbnail of img
@@ -78,6 +86,9 @@ function handleLike(imageObj) {
     .then(resp => resp.json())
     .then((images) => {
         let foundAnImg = false;
+        const oldLikes = parseInt(document.getElementById('num-likes').textContent);
+        const newLikes = oldLikes + 1;
+
         for (image of images) {
             if (image.id === imageObj.id) {
                 foundAnImg = true;
@@ -88,16 +99,14 @@ function handleLike(imageObj) {
                         "Accept": "application/json"
                     },
                     body: JSON.stringify({
-                        "likes": parseInt(document.getElementById('num-likes').textContent) + 1
+                        "likes": newLikes
                         //might not work as intended
                     })
                 })
-                const numLikes = parseInt(document.getElementById('num-likes').textContent);
-                numLikes += 1;
-                document.getElementById('num-likes') = numLikes;
+                document.getElementById('num-likes').textContent = newLikes;
             }
         }
-        if (!foundAnImg) { debugger
+        if (!foundAnImg) { 
             fetch(jsonUrl, {
                 method: "POST",
                 headers: {
