@@ -14,8 +14,11 @@ function getImage() {
 }
 
 function renderImage(imageObj) {
-    // const picDiv = document.getElementById('main');
-    document.querySelector('#main-artwork img').src = imageObj.urls.raw + `&w=1000`;
+    const mainArtwork = document.getElementById('main-artwork').classList;
+    if (mainArtwork != '') {mainArtwork.remove(...mainArtwork)}
+    mainArtwork.add(imageObj.id)
+   document.querySelector('#main-artwork img').src = imageObj.urls.raw + `&fit=clip&w=750&h=750`;
+   
 }
 
 document.addEventListener('DOMContentLoaded', () => {
