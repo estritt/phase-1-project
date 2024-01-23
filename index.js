@@ -47,15 +47,19 @@ function renderImage(imageObj) {
     fetch(jsonUrl)
     .then(resp => resp.json())
     .then((images) => {
-        let foundAnImg = false;
-        for (image of images) {
-            if (image.id === id) {
-                foundAnImg = true;
-                document.getElementById('num-likes').textContent = image.likes
-                break //prevents unecessary iterations after a match is found
-            }
-        if (!foundAnImg) {document.getElementById('num-likes').textContent = 0}
-        }
+        const foundAnImg = images.find((image) => image.id === id);
+        if (foundAnImg) {document.getElementById('num-likes').textContent = image.likes;}
+        else {document.getElementById('num-likes').textContent = 0;}
+        // the below code was simplified into the .find method
+        // let foundAnImg = false; 
+        // for (image of images) {
+        //     if (image.id === id) {
+        //         foundAnImg = true;
+        //         document.getElementById('num-likes').textContent = image.likes
+        //         break //prevents unecessary iterations after a match is found
+        //     }
+        // if (!foundAnImg) {document.getElementById('num-likes').textContent = 0}
+        // }
     });
 
     likeBtn.removeEventListener('click', forListener);
@@ -85,29 +89,24 @@ function handleLike(imageObj) {
     fetch(jsonUrl)
     .then(resp => resp.json())
     .then((images) => {
-        let foundAnImg = false;
+        // commented code in handleLike is being replaced by a find method
+        // let foundAnImg = false;
         const oldLikes = parseInt(document.getElementById('num-likes').textContent);
         const newLikes = oldLikes + 1;
-
-        for (image of images) {
-            if (image.id === imageObj.id) {
-                foundAnImg = true;
-                fetch(`${jsonUrl}${imageObj.id}`, {
-                    method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
-                    },
-                    body: JSON.stringify({
-                        "likes": newLikes
-                        //might not work as intended
-                    })
+        const foundAnImg = images.find(image => image.id === imageObj.id)
+        if (foundAnImg) {
+            fetch(`${jsonUrl}${imageObj.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    "likes": newLikes
                 })
-                document.getElementById('num-likes').textContent = newLikes;
-                break //prevents unecessary iterations after a match is found
-            }
-        }
-        if (!foundAnImg) { 
+            });
+            document.getElementById('num-likes').textContent = newLikes;
+        } else {
             fetch(jsonUrl, {
                 method: "POST",
                 headers: {
@@ -128,6 +127,45 @@ function handleLike(imageObj) {
             });
         }
     })
+        // for (image of images) {
+        //     if (image.id === imageObj.id) {
+        //         foundAnImg = true;
+        //         fetch(`${jsonUrl}${imageObj.id}`, {
+        //             method: "PATCH",
+        //             headers: {
+        //                 "Content-Type": "application/json",
+        //                 "Accept": "application/json"
+        //             },
+        //             body: JSON.stringify({
+        //                 "likes": newLikes
+        //                 //might not work as intended
+        //             })
+        //         })
+        //         document.getElementById('num-likes').textContent = newLikes;
+        //         break //prevents unecessary iterations after a match is found
+        //     }
+        // }
+        // if (!foundAnImg) { 
+        //     fetch(jsonUrl, {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //             "Accept": "application/json"
+        //         },
+        //         body: JSON.stringify({
+        //             'id': imageObj.id,
+        //             'image': imageObj.urls.raw + `&fit=clip&w=100&h=100`,
+        //             'likes': 1,
+        //             'comments': [] 
+        //         })
+        //     })
+        //     .then(resp => resp.json())
+        //     .then(newThumbnail => {
+        //         document.getElementById('num-likes').textContent = 1;
+        //         createThumbnail(newThumbnail);
+        //     });
+        // }
+    // })
 }
       
     
