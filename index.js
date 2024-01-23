@@ -52,7 +52,7 @@ function renderImage(imageObj) {
             if (image.id === id) {
                 foundAnImg = true;
                 document.getElementById('num-likes').textContent = image.likes
-            //adding another for loop to add comments to DOM
+                break //prevents unecessary iterations after a match is found
             }
         if (!foundAnImg) {document.getElementById('num-likes').textContent = 0}
         }
@@ -104,6 +104,7 @@ function handleLike(imageObj) {
                     })
                 })
                 document.getElementById('num-likes').textContent = newLikes;
+                break //prevents unecessary iterations after a match is found
             }
         }
         if (!foundAnImg) { 
