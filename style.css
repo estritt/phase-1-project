@@ -1,6 +1,7 @@
 * {
     box-sizing: border-box;
      /* this doesnt seem to do anything  */
+     font-family: Helvetica, sans-serif;
 }
 
 
@@ -15,76 +16,79 @@ header {
     width: 100%;
     color: #BAE0C2;
     background-color: #987284;
-    border-bottom: 0.5rem solid #231F20
-}
-
-#below-header {
-    display: inline-flex;
+    border-bottom: 0.5rem solid #231F20;
 }
 
 h1 {
-    width: 60vw; /* kind of clumsy fix */
+    width: 60%; /* kind of clumsy fix */
     position: relative;
     left: 5rem;
 }
 
-#thumbnail-tab {
-    /* width: 200px; */
-    flex: 0.1;
-    color: #BAE0C2;
-    background-color: #987284;
-    height: calc(100vh - 5.5rem);
-    overflow-y: auto;
-    /* display: block; */
-    /* align-items: center; */
-    /* flex-direction: column; */
-    flex-direction: column;
-    margin: auto;
-
-}
-
-#thumbnail-tab img {
-    /* margin-left: auto;
-    margin-right: auto; */
-    /* display: block; */
-    /* float: none; */
-    padding: 1rem;
-    margin: auto;
-}
-
-#right-side {
-    /* float: right; */
-    /* display: inline; */
-    /* width: 70%; */
-    flex: 0.9;
-    margin: 1rem 1rem 1rem 1rem;
+#below-header {
+    display: inline-flex;
+    width: 100%;
 }
 
 form#search-bar {
     float: right;
     position: relative;
-    right: 3rem;
+    right: 18rem;
 }
 
+button#new-img-btn {
+    position: relative;
+    left: 18rem;
+}
 
-#main-artwork img {
+#thumbnail-tab {
+    width: 200px;
+    color: #BAE0C2;
+    background-color: #987284;
+    height: calc(100vh - 5.5rem);
+    overflow-y: auto;
+    margin: auto;
+    border-right: 0.5rem solid #231F20;
+}
+
+#thumbnail-tab div {
+    text-align: center;
+}
+
+#thumbnail-tab div img {
+    padding: 1rem;
+    margin: auto;
+}
+
+#right-side {
+    flex: 1;
+    text-align: center;
+}
+
+#navigation {
+    text-align: left;
+    padding: 1rem 1rem 1rem 1rem;
+    background-color: #987284;
+}
+
+#main-artwork {
     margin-left: auto;
     margin-right: auto;
     margin-top: 1rem;
     margin-bottom: 1rem;
-    display: block;
-    float: none
 }
 
 /* #likes-and-comments {
     display: inline-flex;
 } */
 
-/* #likes {
-    display: flex-inline;
-} */
+#likes {
+    display: inline-flex;
+    position: relative;
+    right: 18rem
+}
 
-/* #num-likes {
+#num-likes {
     padding-left: 0.5rem;
-    padding-top: 0.3rem;
-} */
+    font-size: 16pt;
+}
