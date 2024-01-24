@@ -79,10 +79,14 @@ function createThumbnail(newThumbnail) {
     //makes thumbnail and adds event listener with handleThumbnailClick as the callback function
     const thumbnailTab = document.getElementById('thumbnail-tab');
     const newThumbnailImg = document.createElement('img')
+    const newThumbnailDiv = document.createElement('div');
     newThumbnailImg.src = newThumbnail.image;
-    newThumbnailImg.classList.add(newThumbnail.id);
+    newThumbnailDiv.classList.add(newThumbnail.id);
     //newThumbnailImg.addEventListener('click', (e) => handleThumbnailClick(e));
-    thumbnailTab.prepend(newThumbnailImg);
+    thumbnailTab.prepend(newThumbnailDiv);
+    document.querySelector(`[id='thumbnail-tab'] div[class='${newThumbnail.id}']`).append(newThumbnailImg);
+    
+    // thumbnailTab.prepend(newThumbnailImg);
 }
 
 function handleLike(imageObj) {
