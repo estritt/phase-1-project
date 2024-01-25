@@ -81,9 +81,11 @@ button#new-img-btn {
 }
 
 #navigation {
-    position: sticky;
+    width:95vw; /*clunky*/
+    /* position: sticky;
     top: 0;
     left: 0;
+    cant get it to stick */
     text-align: left;
     padding: 1rem 1rem 1rem 1rem;
     background-color: #987284;

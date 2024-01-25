@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitComment = document.getElementById('comment-form');
     submitComment.addEventListener('submit', (e) => handleComment(e));
 
+    document.querySelector('#main-artwork img').addEventListener('dblclick', getRandImage);
+
     fetch(jsonUrl)
     .then(resp => resp.json())
     .then(images => {
@@ -39,14 +41,18 @@ function getRandImage() {
 // making this variable and this function global allow removeEventListener in renderImage to find the right function instance
 let selectedImageObj;
 function forListener() {handleLike(selectedImageObj)}
+function forListenerUn() {handleUnlike(selectedImageObj)}
 
 function renderImage(imageObj) {
     selectedImageObj = imageObj;
-    const mainArtwork = document.getElementById('main-artwork').classList;
+    const mainArtworkId = document.getElementById('main-artwork').classList;
     const id = imageObj.id;
-    if (mainArtwork != '') {mainArtwork.remove(...mainArtwork);}
-    mainArtwork.add(id);
-    document.querySelector('#main-artwork img').src = imageObj.urls.raw + `&fit=clip&w=750&h=750`;
+    if (mainArtworkId) {mainArtworkId.remove(...mainArtworkId);}
+    mainArtworkId.add(id);
+    const mainArtworkImg = document.querySelector('#main-artwork img');
+    mainArtworkImg.src = imageObj.urls.raw + `&fit=clip&w=750&h=750`; 
+    mainArtworkImg.title = imageObj.alt_description;
+
 
     likeBtn = document.getElementById("like-btn");
     likeBtn.textContent = emptyHeart;
@@ -69,8 +75,8 @@ function renderImage(imageObj) {
             document.getElementById('num-likes').textContent = 0;
         }
     });
-
     likeBtn.removeEventListener('click', forListener);
+    likeBtn.removeEventListener('click', forListenerUn);
     likeBtn.addEventListener('click', forListener);
 }
 
@@ -151,6 +157,9 @@ function handleThumbnailClick(e) {
 }
 
 function handleLike(imageObj) {
+    likeBtn.textContent = fullHeart;
+    likeBtn.removeEventListener('click', forListener); //prevents multiple likes (until you rerender the image at least)
+    likeBtn.addEventListener('click', forListenerUn)
     fetch(jsonUrl)
     .then(resp => resp.json())
     .then((images) => {
@@ -189,5 +198,28 @@ function handleLike(imageObj) {
                 createThumbnail(newThumbnail);
             });
         }
+    })
+}
+
+function handleUnlike(imageObj) {
+    likeBtn.textContent = emptyHeart;
+    likeBtn.removeEventListener('click', forListenerUn); 
+    likeBtn.addEventListener('click', forListener)
+    fetch(jsonUrl)
+    .then(resp => resp.json())
+    .then((images) => {
+        const oldLikes = parseInt(document.getElementById('num-likes').textContent);
+        const newLikes = oldLikes - 1;
+        fetch(`${jsonUrl}${imageObj.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                "likes": newLikes
+            })
+        });
+        document.getElementById('num-likes').textContent = newLikes;
     })
 }

@@ -153,19 +153,19 @@
     {
       "id": "vONkA3AVhBY",
       "image": "https://images.unsplash.com/photo-1705917677386-d6e882e29e6e?ixid=M3w1NTUwMjJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MDYxNDU0MzN8&ixlib=rb-4.0.3&fit=clip&w=100&h=100",
-      "likes": 5,
+      "likes": 6,
       "comments": []
     },
     {
       "id": "0Yn7woo1VwM",
       "image": "https://images.unsplash.com/photo-1703454474338-3eb47faabbdf?ixid=M3w1NTUwMjJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MDYxNDU0NDZ8&ixlib=rb-4.0.3&fit=clip&w=100&h=100",
-      "likes": 8,
+      "likes": 9,
       "comments": []
     },
     {
       "id": "68CopG3fmrg",
       "image": "https://images.unsplash.com/photo-1705714135183-dbe57919b735?ixid=M3w1NTUwMjJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MDYxNDg0OTF8&ixlib=rb-4.0.3&fit=clip&w=100&h=100",
-      "likes": 0,
+      "likes": 1,
       "comments": [
         "asdf"
       ]
@@ -173,7 +173,7 @@
     {
       "id": "e6izyojjM1s",
       "image": "https://images.unsplash.com/photo-1703700414421-fccc37e07836?ixid=M3w1NTUwMjJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MDYxNDg1OTN8&ixlib=rb-4.0.3&fit=clip&w=100&h=100",
-      "likes": 0,
+      "likes": 3,
       "comments": [
         "asdf"
       ]
@@ -181,7 +181,7 @@
     {
       "id": "qULoboaMy4w",
       "image": "https://images.unsplash.com/photo-1704162751314-cf8dc177c851?ixid=M3w1NTUwMjJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MDYxNDg3Mjd8&ixlib=rb-4.0.3&fit=clip&w=100&h=100",
-      "likes": 0,
+      "likes": 1,
       "comments": [
         "asdf"
       ]
@@ -189,10 +189,11 @@
     {
       "id": "j6AcG_9vJGU",
       "image": "https://images.unsplash.com/photo-1703842184292-578efd933bbd?ixid=M3w1NTUwMjJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MDYxNDg3OTd8&ixlib=rb-4.0.3&fit=clip&w=100&h=100",
-      "likes": 0,
+      "likes": 4,
       "comments": [
         "asdf",
-        "comment 2"
+        "comment 2",
+        "i too look at mountains sometimes"
       ]
     }
   ]
