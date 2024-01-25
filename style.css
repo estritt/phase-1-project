@@ -34,6 +34,10 @@ h1 {
     width: 100%;
 }
 
+#thumbnail-area {/* this is just to get the right-side to be aligned correctly */
+    flex: 0.14 
+} 
+
 form#search-bar {
     float: right;
     position: relative;
@@ -67,11 +71,12 @@ button#new-img-btn {
 #thumbnail-tab div img {margin: auto;}
 
 #right-side {
-    position: relative;
-    left: calc(192.727 + 7.273);
+    /* position: relative;
+    left: calc(192.727 + 7.273); */
     /* float: right; */
     width: calc(100% - (192.727 + 7.273));
-    /* flex: 1; */
+    order:2;
+    flex: 1;
     text-align: center;
 }
 

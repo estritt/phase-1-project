@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     newImgBtn.addEventListener('click', () => getRandImage());
 
     const submitComment = document.getElementById('comment-form');
-    submitComment.addEventListener('submit', (e) => handleComment);
+    submitComment.addEventListener('submit', (e) => handleComment(e));
 
     fetch(jsonUrl)
     .then(resp => resp.json())
@@ -28,12 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let image of images) {createThumbnail(image);}
     });
 })
-
-function handleComment(e) {
-    const newComment = document.createElement('div');
-    newComment.className = 'comment';
-    
-}
 
 function getRandImage() {
     fetch(`${baseUrl}photos/random`, configObj)
@@ -57,12 +51,13 @@ function renderImage(imageObj) {
     likeBtn = document.getElementById("like-btn");
     likeBtn.textContent = emptyHeart;
     
+    document.getElementById('existing-comments').innerHTML = '';
     fetch(jsonUrl)
     .then(resp => resp.json())
     .then((images) => {
         const matchingImg = images.find((image) => image.id === id);
         if (matchingImg) {
-            document.getElementById('num-likes').textContent = matchingImg.likes;
+            document.getElementById('num-likes').textContent = matchingImg.likes; 
             matchingImg.comments.forEach(comment => {
                 const newComment = document.createElement('div');
                 newComment.className = 'comment';
@@ -72,12 +67,64 @@ function renderImage(imageObj) {
         }
         else {
             document.getElementById('num-likes').textContent = 0;
-            document.getElementById('existing-comments').innerHTML = '';
         }
     });
 
     likeBtn.removeEventListener('click', forListener);
     likeBtn.addEventListener('click', forListener);
+}
+
+function handleComment(e) {
+    e.preventDefault();
+    const newComment = document.createElement('div');
+    newComment.className = 'comment';
+    const newCommentText = document.getElementById('comment-form-text').value;
+    newComment.textContent = newCommentText
+    document.getElementById('existing-comments').prepend(newComment);
+    document.getElementById('comment-form-text').value = '';
+    const id = document.getElementById('main-artwork').className;
+    fetch(jsonUrl) //maybe you can use if (fetch) to check if something is in a json, which would be simpler
+    .then(resp => resp.json())
+    .then((images) => {
+        const foundAnImg = images.find(image => image.id === id)
+        if (foundAnImg) {
+            let previousComments;
+            fetch(`${jsonUrl}${id}`)
+            .then(resp => resp.json())
+            .then(imageObj => {
+                previousComments = imageObj.comments;
+                const allComments = [...previousComments, newCommentText];
+                fetch(`${jsonUrl}${id}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify({
+                        "comments": allComments
+                    })
+                });
+            });
+        } else {
+            fetch(jsonUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    'id': id,
+                    'image': selectedImageObj.urls.raw + `&fit=clip&w=100&h=100`, //unfortunately i don't know how to do this without either doing another fetch or using the global variable
+                    'likes': 0,
+                    'comments': [newCommentText]
+                })
+            })
+            .then(resp => resp.json())
+            .then(newThumbnail => {
+                createThumbnail(newThumbnail);
+            });
+        }
+    });
 }
 
 function createThumbnail(newThumbnail) {
