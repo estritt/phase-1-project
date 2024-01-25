@@ -1,11 +1,13 @@
-const base_Url = 'https://api.unsplash.com/';
+const baseUrl = 'https://api.unsplash.com/';
 const myKey = accessKey;
 const emptyHeart = "♡";
 const fullHeart = "♥";
 const jsonUrl = "http://localhost:3000/artwork/"
 const configObj = {
     headers: {
-        'Authorization': `Client-ID ${myKey}`
+        'Authorization': `Client-ID ${myKey}`,
+        "Content-Type": "application/json",
+        "Accept": "application/json"
     }
 }
 
@@ -17,6 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const newImgBtn = document.getElementById('new-img-btn');
     newImgBtn.addEventListener('click', () => getRandImage());
 
+    const submitComment = document.getElementById('comment-form');
+    submitComment.addEventListener('submit', (e) => handleComment);
+
     fetch(jsonUrl)
     .then(resp => resp.json())
     .then(images => {
@@ -24,8 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 })
 
+function handleComment(e) {
+    const newComment = document.createElement('div');
+    newComment.className = 'comment';
+    
+}
+
 function getRandImage() {
-    fetch(`${base_Url}photos/random`, configObj)
+    fetch(`${baseUrl}photos/random`, configObj)
     .then(resp => resp.json())
     .then(imageObj => {renderImage(imageObj)})
     .catch(() => {document.querySelector('#main-artwork img').src = 'placeholder.jpg';});
@@ -42,7 +53,7 @@ function renderImage(imageObj) {
     if (mainArtwork != '') {mainArtwork.remove(...mainArtwork);}
     mainArtwork.add(id);
     document.querySelector('#main-artwork img').src = imageObj.urls.raw + `&fit=clip&w=750&h=750`;
-   
+
     likeBtn = document.getElementById("like-btn");
     likeBtn.textContent = emptyHeart;
     
@@ -50,8 +61,19 @@ function renderImage(imageObj) {
     .then(resp => resp.json())
     .then((images) => {
         const matchingImg = images.find((image) => image.id === id);
-        if (matchingImg) {document.getElementById('num-likes').textContent = matchingImg.likes;}
-        else {document.getElementById('num-likes').textContent = 0;}
+        if (matchingImg) {
+            document.getElementById('num-likes').textContent = matchingImg.likes;
+            matchingImg.comments.forEach(comment => {
+                const newComment = document.createElement('div');
+                newComment.className = 'comment';
+                newComment.textContent = comment;
+                document.getElementById('existing-comments').prepend(newComment);
+            });
+        }
+        else {
+            document.getElementById('num-likes').textContent = 0;
+            document.getElementById('existing-comments').innerHTML = '';
+        }
     });
 
     likeBtn.removeEventListener('click', forListener);
@@ -61,11 +83,12 @@ function renderImage(imageObj) {
 function createThumbnail(newThumbnail) {
     //makes thumbnail and adds event listener with handleThumbnailClick as the callback function
     const thumbnailTab = document.getElementById('thumbnail-tab');
-    const newThumbnailImg = document.createElement('img')
+    const newThumbnailImg = document.createElement('img');
     const newThumbnailDiv = document.createElement('div');
     newThumbnailImg.src = newThumbnail.image;
     newThumbnailDiv.classList.add(newThumbnail.id);
     newThumbnailImg.addEventListener('click', (e) => handleThumbnailClick(e));
+    newThumbnailDiv.addEventListener('mouseover', (e) => e.target)
     thumbnailTab.prepend(newThumbnailDiv);
     document.querySelector(`[id='thumbnail-tab'] div[class='${newThumbnail.id}']`).append(newThumbnailImg);
 }
@@ -74,7 +97,7 @@ function handleThumbnailClick(e) {
     //this renders the image in the main-artwork area
     const clickedThumbnail = e.target;
     const id = clickedThumbnail.parentNode.classList[0]
-    fetch(`${base_Url}photos/${id}`, configObj)
+    fetch(`${baseUrl}photos/${id}`, configObj)
     .then(resp => resp.json())
     .then(image => renderImage(image))
     .catch(err => window.alert(err.message));

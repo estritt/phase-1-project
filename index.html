@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <h1>API Project</h1>
+        <h1>Unsplash Gallery</h1>
     </header>
 
 
@@ -31,8 +31,16 @@
                     <div id="num-likes"></div>
                 </div>
                 <div id="comments">
-                    <form id="comment-form"></form>
-                    <ul id="existing-comments"></ul>
+                    <form id="comment-form" method="post">
+                        <textarea name="comment" id="comment-form-text" cols="50" rows="8" placeholder="Comment here!"></textarea>
+                        <button class="comment-submit">Comment</button>
+                    </form>
+                    <div id="existing-comments">
+                        <div class="comment">comment 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Proin sagittis nisl rhoncus mattis rhoncus urna neque viverra. Viverra suspendisse potenti nullam ac. Ornare suspendisse sed nisi lacus sed viverra tellus in. Enim ut tellus elementum sagittis vitae et leo duis ut. Dui accumsan sit amet nulla. Sed pulvinar proin gravida hendrerit. Id ornare arcu odio ut sem. Odio eu feugiat pretium nibh ipsum consequat nisl vel. Donec enim diam vulputate ut pharetra sit.
+
+                        </div>
+                        <div class="comment">and comment 2</div>
+                    </div>
                 </div>
             </div>
         </div>
