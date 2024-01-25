@@ -89,7 +89,7 @@ function handleComment(e) {
     document.getElementById('existing-comments').prepend(newComment);
     document.getElementById('comment-form-text').value = '';
     const id = document.getElementById('main-artwork').className;
-    fetch(jsonUrl) //maybe you can use if (fetch) to check if something is in a json, which would be simpler
+    fetch(jsonUrl) //maybe you can use if (fetch(url/id)) to check if something is in a json, which would be simpler
     .then(resp => resp.json())
     .then((images) => {
         const foundAnImg = images.find(image => image.id === id)
@@ -120,7 +120,7 @@ function handleComment(e) {
                 },
                 body: JSON.stringify({
                     'id': id,
-                    'image': selectedImageObj.urls.raw + `&fit=clip&w=100&h=100`, //unfortunately i don't know how to do this without either doing another fetch or using the global variable
+                    'image': selectedImageObj.urls.raw + `&fit=clip&w=100&h=100`, 
                     'likes': 0,
                     'comments': [newCommentText]
                 })

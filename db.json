@@ -181,7 +181,7 @@
     {
       "id": "qULoboaMy4w",
       "image": "https://images.unsplash.com/photo-1704162751314-cf8dc177c851?ixid=M3w1NTUwMjJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MDYxNDg3Mjd8&ixlib=rb-4.0.3&fit=clip&w=100&h=100",
-      "likes": 1,
+      "likes": 2,
       "comments": [
         "asdf"
       ]
@@ -189,11 +189,25 @@
     {
       "id": "j6AcG_9vJGU",
       "image": "https://images.unsplash.com/photo-1703842184292-578efd933bbd?ixid=M3w1NTUwMjJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MDYxNDg3OTd8&ixlib=rb-4.0.3&fit=clip&w=100&h=100",
-      "likes": 4,
+      "likes": 6,
       "comments": [
         "asdf",
         "comment 2",
         "i too look at mountains sometimes"
+      ]
+    },
+    {
+      "id": "w8zJdG8R_LE",
+      "image": "https://images.unsplash.com/photo-1705648326797-24cb0324a951?ixid=M3w1NTUwMjJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MDYxOTQxODV8&ixlib=rb-4.0.3&fit=clip&w=100&h=100",
+      "likes": 1,
+      "comments": []
+    },
+    {
+      "id": "TFdUQaIjV6s",
+      "image": "https://images.unsplash.com/photo-1704072384017-788b1ccbaae5?ixid=M3w1NTUwMjJ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3MDYyMDAzNTJ8&ixlib=rb-4.0.3&fit=clip&w=100&h=100",
+      "likes": 1,
+      "comments": [
+        "wow a comment"
       ]
     }
   ]
